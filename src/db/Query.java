@@ -13,13 +13,13 @@ public class Query {
     }
 
     public ArrayList<ArrayList<String>> getData() {
-        ArrayList<ArrayList<String>> data = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(this.url, this.name, this.password)) {
             String query = "SELECT * FROM expenses";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                ArrayList<String> t = new ArrayList<String>();
+                ArrayList<String> t = new ArrayList<>();
                 t.add(Integer.toString(resultSet.getInt("id")));
                 t.add(resultSet.getString("title"));
                 t.add(Integer.toString(resultSet.getInt("amount")));
