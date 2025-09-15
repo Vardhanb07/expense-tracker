@@ -20,17 +20,32 @@ public class MainFrame extends JFrame {
         this.setTitle("Expense Tracker");
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout(30, 30));
         this.setVisible(true);
         addHeaderButtons();
         addExpensesPanel();
     }
 
     void addHeaderButtons() {
-        JPanel headerButtonPenal = new JPanel(new FlowLayout());
+        JPanel headerButtonPenal = new JPanel();
+        headerButtonPenal.setLayout(new FlowLayout());
         createButton = new JButton("Create");
-        expensesButton = new JButton("Expenses");
+        createButton.setFont(new Font("Arial", Font.PLAIN, 24));
+        createButton.setBackground(new Color(0xCA231919, true));
+        createButton.setForeground(new Color(0xFFFFFF));
+        createButton.setFocusPainted(false);
+        createButton.setBorder(BorderFactory.createEmptyBorder(6, 20, 6, 20));
+        createButton.setToolTipText("Click me to create a new expense");
+        createButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         headerButtonPenal.add(createButton);
+        expensesButton = new JButton("Expenses");
+        expensesButton.setFont(new Font("Arial", Font.PLAIN, 24));
+        expensesButton.setBackground(new Color(0xCA231919, true));
+        expensesButton.setForeground(new Color(0xFFFFFF));
+        expensesButton.setFocusPainted(false);
+        expensesButton.setBorder(BorderFactory.createEmptyBorder(6, 20, 6, 20));
+        expensesButton.setToolTipText("Click me to show all the expenses");
+        expensesButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         headerButtonPenal.add(expensesButton);
         this.add(headerButtonPenal, BorderLayout.PAGE_START);
     }
@@ -47,23 +62,23 @@ public class MainFrame extends JFrame {
     }
 
     void addExpensePanel(ArrayList<String> data) {
-        JPanel centerExpensePanel = new JPanel();
-        centerExpensePanel.setLayout(new BorderLayout());
-        JPanel expenseInnerPanel = new JPanel();
-        expenseInnerPanel.setLayout(new BoxLayout(expenseInnerPanel, BoxLayout.PAGE_AXIS));
-        JLabel titleLabel = new JLabel(data.get(1));
-        titleLabel.setHorizontalAlignment(JLabel.CENTER);
-        titleLabel.setVerticalAlignment(JLabel.CENTER);
-        expenseInnerPanel.add(titleLabel);
-        JLabel amountLabel = new JLabel(data.get(2));
-        amountLabel.setHorizontalAlignment(JLabel.CENTER);
-        amountLabel.setVerticalAlignment(JLabel.CENTER);
-        expenseInnerPanel.add(amountLabel);
-        JLabel descriptionLabel = new JLabel(data.get(3));
-        descriptionLabel.setHorizontalAlignment(JLabel.CENTER);
-        descriptionLabel.setVerticalAlignment(JLabel.CENTER);
-        expenseInnerPanel.add(descriptionLabel);
-        centerExpensePanel.add(expenseInnerPanel, BorderLayout.CENTER);
-        expensePanel.add(centerExpensePanel);
+        JPanel innerExpensePanel = new JPanel();
+        innerExpensePanel.setLayout(new BoxLayout(innerExpensePanel, BoxLayout.Y_AXIS));
+        JLabel titleLabel = new JLabel("Title: " + data.get(1));
+        titleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 5, 10));
+        innerExpensePanel.add(titleLabel);
+        JLabel amountLabel = new JLabel("Amount: " + data.get(2));
+        amountLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        amountLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        innerExpensePanel.add(amountLabel);
+        JLabel descriptionLabel = new JLabel("Description: " + data.get(3));
+        descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        descriptionLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
+        innerExpensePanel.add(descriptionLabel);
+        innerExpensePanel.setBorder(new RoundedBorder(10));
+        innerExpensePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        expensePanel.add(innerExpensePanel);
+        expensePanel.add(Box.createRigidArea(new Dimension(10, 10)));
     }
 }
