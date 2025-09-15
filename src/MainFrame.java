@@ -74,8 +74,21 @@ public class MainFrame extends JFrame {
         innerExpensePanel.add(amountLabel);
         JLabel descriptionLabel = new JLabel("Description: " + data.get(3));
         descriptionLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        descriptionLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
+        descriptionLabel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         innerExpensePanel.add(descriptionLabel);
+        JButton removeButton = new JButton("Remove");
+        removeButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        removeButton.setToolTipText("Click me to remove the above expense");
+        removeButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        removeButton.setBackground(new Color(0xCA231919, true));
+        removeButton.setForeground(new Color(0xFFFFFF));
+        removeButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        removeButton.addActionListener(e -> {
+            Query q = new Query(this.url, this.name, this.password);
+            q.removeData(Integer.parseInt(data.get(0)));
+            innerExpensePanel.setVisible(false);
+        });
+        innerExpensePanel.add(removeButton);
         innerExpensePanel.setBorder(new RoundedBorder(10));
         innerExpensePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         expensePanel.add(innerExpensePanel);

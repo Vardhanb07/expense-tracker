@@ -15,7 +15,7 @@ public class Query {
     public ArrayList<ArrayList<String>> getData() {
         ArrayList<ArrayList<String>> data = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(this.url, this.name, this.password)) {
-            String query = "SELECT * FROM expenses";
+            String query = "SELECT * FROM expenses;";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
@@ -34,7 +34,7 @@ public class Query {
 
     public void insertData(String title, String amount, String description) {
         try (Connection connection = DriverManager.getConnection(this.url, this.name, this.password)) {
-            String query = "INSERT INTO expenses (title, amount, description) VALUES (?, ?, ?)";
+            String query = "INSERT INTO expenses (title, amount, description) VALUES (?, ?, ?);";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, title);
             statement.setString(2, amount);
@@ -48,7 +48,7 @@ public class Query {
     public ArrayList<String> getData(int id) {
         ArrayList<String> data = new ArrayList<String>();
         try (Connection connection = DriverManager.getConnection(this.url, this.name, this.password)) {
-            String query = "SELECT * FROM expenses WHERE id = ?";
+            String query = "SELECT * FROM expenses WHERE id = ?;";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, Integer.toString(id));
             ResultSet resultSet = statement.executeQuery();
@@ -62,5 +62,16 @@ public class Query {
             System.out.println("Connection failed: " + e.getMessage());
         }
         return data;
+    }
+
+    public void removeData(int id) {
+        try (Connection connection = DriverManager.getConnection(this.url, this.name, this.password)) {
+            String query = "DELETE FROM expenses WHERE id = ?;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, Integer.toString(id));
+            statement.execute();
+        } catch (SQLException e) {
+            System.out.println("Connection failed: " + e.getMessage());
+        }
     }
 }
