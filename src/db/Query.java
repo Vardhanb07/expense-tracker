@@ -39,7 +39,7 @@ public class Query {
             statement.setString(1, title);
             statement.setString(2, amount);
             statement.setString(3, description);
-            statement.executeQuery();
+            statement.execute();
         } catch (SQLException e) {
             System.out.println("Connection failed: " + e.getMessage());
         }
